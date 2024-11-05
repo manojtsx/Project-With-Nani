@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import {useNavigate} from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const [user, setUser] = useState({
     username: "",
@@ -19,7 +21,7 @@ function Login() {
   function handleLoginForm(event) {
     event.preventDefault();
     if (user.username === "admin" && user.password === "admin") {
-      window.alert("You have successfully logged in..");
+      navigate("/dashboard");
     } else {
       window.alert("Wrong Credentials.");
     }
@@ -49,18 +51,24 @@ function Login() {
           <label htmlFor="password" className="text-black">
             Password:
           </label>
-          <div className="relative">
+          <div className="relative text-black">
             <input
               type={isVisible ? "text" : "password"}
               name="password"
-              className="h-9 outline-none text-black px-2 border border-b-2 border-b-blue-500 focus:border-b-red-500"
+              className="h-9 outline-none px-2 pr-10 border border-b-2 border-b-blue-500 focus:border-b-red-500"
               onChange={handleInputChange}
               value={user.password}
             />
             {isVisible ? (
-              <VisibilityIcon onClick={handleVisibility} className="absolute" />
+              <VisibilityIcon
+                onClick={handleVisibility}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+              />
             ) : (
-              <VisibilityOffIcon onClick={handleVisibility} />
+              <VisibilityOffIcon
+                onClick={handleVisibility}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+              />
             )}
           </div>
         </div>
