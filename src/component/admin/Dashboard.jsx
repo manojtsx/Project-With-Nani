@@ -6,8 +6,11 @@ import {
 } from "../../utils/question";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+  const navigate = useNavigate();
   const [questions, setQuestions] = useState(getAllQuestion());
 
   function deleteQues(index) {
@@ -19,6 +22,10 @@ function Dashboard() {
       <div className="flex flex-col items-center bg-purple-600 text-white text-2xl p-4 rounded-lg shadow-md mb-6">
         <p className="mb-2">Number of Questions:</p>
         <p className="text-4xl font-bold">{countQuestion()}</p>
+      </div>
+      <div className="flex justify-between my-4">
+        <h1 className="text-2xl underline">Questions</h1>
+        <button className="bg-blue-500 text-white px-4 py-2 border rounded-md flex items-center gap-1" onClick={()=>navigate('/add')}><AddIcon/><span>Add Question</span></button>
       </div>
       <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
         <thead>

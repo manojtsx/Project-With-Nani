@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './component/auth/Login'
 import Register from './component/auth/Register'
 import Dashboard from './component/admin/Dashboard'
+import AddQuestion from './component/admin/AddQuestion'
 
 function App() {
   const router = createBrowserRouter([
@@ -17,6 +18,10 @@ function App() {
     {
       path : '/dashboard',
       element : <Dashboard />
+    },
+    {
+      path : '/add',
+      element : <AddQuestion />
     }
   ])
   return (
