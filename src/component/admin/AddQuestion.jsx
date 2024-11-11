@@ -1,35 +1,83 @@
-import React from "react";
-import {
-  FormControl,
-  InputLabel,
-  Input,
-  FormHelperText,
-  RadioGroup,
-  FormLabel,
-  FormControlLabel,
-  Radio,
-} from "@mui/material";
+import React, { useState } from "react";
+import quizData from "../../data/quiz";
 
 function AddQuestion() {
-  return (
-    <div>
-      <FormControl>
-        <InputLabel htmlFor="question">Question</InputLabel>
-        <Input id="my-input" aria-describedby="my-helper-text" />
-        <FormHelperText id="my-helper-text">Enter the question</FormHelperText>
-      </FormControl>
+  const [options, setOptions] = useState([]);
+  const [option, setOption] = useState("");
+  const [correctAnswer, setCorrectAnswer] = useState("");
+  const [question, setQuestion] = useState("");
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      setOptions([...options, option]);
+      setOption("");
+    }
+  };
 
-      <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
-      <RadioGroup
-        aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue="female"
-        name="radio-buttons-group"
-      >
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-        <FormControlLabel value="male" control={<Radio />} label="Male" />
-        <FormControlLabel value="other" control={<Radio />} label="Other" />
-      </RadioGroup>
-    </div>
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    setOption(event.target.value);
+  };
+
+  const handleRadioButtonPress = (event) => {
+    setCorrectAnswer(event.target.value);
+  };
+
+  const handleFormSubmit = (event) => {
+    if (event.key === "Enter") {
+      return;
+    }
+    event.preventDefault();
+    console.log(quizData);
+    quizData.push({ question, options, correctAnswer });
+    console.log(quizData);
+  };
+
+  return (
+    <form onSubmit={handleFormSubmit}>
+      <div>
+        <label htmlFor="question">Question: </label>
+        <input
+          type="text"
+          name=""
+          value={question}
+          handleChange={(event) => {
+            setQuestion(event.target.value);
+          }}
+        />
+      </div>
+      <div>
+        <p className="text-blue-400">Enter the options: </p>
+        {options.map((opt, index) => {
+          return (
+            <div key={index}>
+              <input
+                type="radio"
+                name="option"
+                value={opt}
+                onKeyDown={handleRadioButtonPress}
+              />
+              <input
+                type="text"
+                value={opt}
+                onChange={handleChange}
+                onKeyDown={handleKeyPress}
+              />
+            </div>
+          );
+        })}
+        <div>
+          <input type="radio" name="option" />
+          <input
+            type="text"
+            name="option"
+            value={option}
+            onChange={handleChange}
+            onKeyDown={handleKeyPress}
+          />
+        </div>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
   );
 }
 
