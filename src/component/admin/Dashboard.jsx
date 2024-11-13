@@ -46,7 +46,7 @@ function Dashboard() {
               <td className="py-3 px-4">{index + 1}</td>
               <td className="py-3 px-4">{question.question}</td>
               <td className="py-3 px-4 flex space-x-2">
-                <EditIcon className="cursor-pointer hover:text-yellow-300" />
+                <EditIcon onClick={()=> navigate(`/edit/${index}`)} className="cursor-pointer hover:text-yellow-300" />
                 <DeleteIcon
                   onClick={() => deleteQues(index)}
                   className="cursor-pointer hover:text-red-300"

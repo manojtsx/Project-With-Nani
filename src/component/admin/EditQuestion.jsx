@@ -1,50 +1,37 @@
-import React, { useState } from "react";
-import quizData from "../../data/quiz";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom';
+import quizData from '../../data/quiz';
 
-function AddQuestion() {
-  const navigate = useNavigate();
-  const [options, setOptions] = useState([]);
-  const [option, setOption] = useState("");
-  const [correctAnswer, setCorrectAnswer] = useState("");
-  const [question, setQuestion] = useState("");
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      setOptions([...options, option]);
-      setOption("");
+function EditQuestion() {
+    const { id } = useParams();
+    const [question, setQuestion] = React.useState("");
+    const [options, setOptions] = React.useState([]);
+    const [option, setOption] = React.useState("");
+    const [correctAnswer, setCorrectAnswer] = React.useState("");
+    
+    useEffect(()=>{
+        quizData.filter((data, index)=>{
+            if(index == id){
+                setQuestion(data.question);
+                setOptions(data.choices);
+                setCorrectAnswer(data.correctAnswer);
+            }
+        })
+    })
+    const handleChange =  (event) => {
     }
-  };
 
-  const handleChange = (event) => {
-    console.log(event.target.value);
-    setOption(event.target.value);
-  };
-
-  const handleRadioButtonPress = (event) => {
-    console.log(event.target.value);
-    setCorrectAnswer(event.target.value);
-  };
-
-  const handleFormSubmit = (event) => {
-    if (event.key === "Enter") {
-      return;
+    const handleKeyPress = (event) => {
     }
-    event.preventDefault();
-    console.log(quizData);
-    const isDataAdded = quizData.push({ question, options, correctAnswer });
-    if (isDataAdded) {
-      console.log(quizData);
 
-      navigate("/dashboard");
-    } else {
-      window.alert("Something went wrong");
+    const handleRadioButtonPress = (event) => {
     }
-  };
+
+
 
   return (
     <form
-      onSubmit={handleFormSubmit}
+    //   onSubmit={handleFormSubmit}
       className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-md"
     >
       <div className="mb-4">
@@ -107,7 +94,7 @@ function AddQuestion() {
         Go To Dashboard
       </button>
     </form>
-  );
+  )
 }
 
-export default AddQuestion;
+export default EditQuestion
