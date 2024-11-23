@@ -5,9 +5,14 @@ import Register from './component/auth/Register'
 import Dashboard from './component/admin/Dashboard'
 import AddQuestion from './component/admin/AddQuestion'
 import EditQuestion from './component/admin/EditQuestion'
+import PlayQuiz from './component/quiz/PlayQuiz'
 
 function App() {
   const router = createBrowserRouter([
+    {
+      path : '/',
+      element : <PlayQuiz />
+    },
     {
       path : '/login',
       element : <Login />
